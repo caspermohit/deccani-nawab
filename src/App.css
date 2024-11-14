@@ -1,38 +1,92 @@
-.App {
-  text-align: center;
+
+
+/* General styles for sections */
+section {
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Heading styles */
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Paragraph styles */
+p {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.5;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Responsive design adjustments */
+@media (max-width: 600px) {
+    section {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 14px;
+    }
 }
 
-.App-link {
-  color: #61dafb;
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.gallery img {
+    margin: 10px;
+    width: 300px; /* Adjust as needed */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Optional: for rounded corners */
+}
+
+/* Form container styles */
+.form-container {
+    display: flex; /* Use flexbox to arrange forms side by side */
+    justify-content: space-between; /* Space between forms */
+    gap: 20px; /* Space between the two forms */
+}
+
+/* Form styles */
+form {
+    flex: 1; /* Allow forms to grow equally */
+    padding: 20px; /* Padding inside the form */
+    background-color: #f9f9f9; /* Light background for forms */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+input, textarea {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%; /* Full width for inputs */
+}
+
+button {
+    padding: 10px;
+    background-color: #28a745; /* Green background */
+    color: white; /* White text */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #218838; /* Darker green on hover */
 }
