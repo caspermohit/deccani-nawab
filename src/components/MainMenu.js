@@ -1,21 +1,38 @@
 // src/components/MainMenu.js
-import React from 'react';
+import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import '../../src/styles.css';
 
-const MainMenu = () => {
+const MainMenu = ({ setCart }) => {
+    const [cart, setLocalCart] = useState([]);
+
     const menuItems = [
-        { name: "Mango Shake", image: "https://via.placeholder.com/150?text=Mango+Shake" },
-        { name: "Oreo Shake", image: "https://via.placeholder.com/150?text=Oreo+Shake" },
-        { name: "Fudge", image: "https://via.placeholder.com/150?text=Fudge" },
-        { name: "Ferrerro", image: "https://via.placeholder.com/150?text=Ferrerro" },
-        { name: "Haleem: Chicken(16OZ)", image: "https://via.placeholder.com/150?text=Haleem" },
-        { name: "Hyderabadi Mutton Marag(24 OZ)", image: "https://via.placeholder.com/150?text=Mutton+Marag" },
-        { name: "Aloo Tikki Burger", image: "https://via.placeholder.com/150?text=Aloo+Tikki+Burger" },
-        { name: "Shami Egg Burger", image: "https://via.placeholder.com/150?text=Shami+Egg+Burger" },
-        { name: "Noodle Burger", image: "https://via.placeholder.com/150?text=Noodle+Burger" },
-        { name: "Crispy Zinger Burger", image: "https://via.placeholder.com/150?text=Crispy+Zinger+Burger" },
-        { name: "Noodle Roll", image: "https://via.placeholder.com/150?text=Noodle+Roll" }
+        {
+            category: "Beverages",
+            items: [
+                { name: "Mango Shake", image: "https://via.placeholder.com/150?text=Mango+Shake" },
+                { name: "Oreo Shake", image: "https://via.placeholder.com/150?text=Oreo+Shake" },
+            ]
+        },
+        {
+            category: "Desserts",
+            items: [
+                { name: "Fudge", image: "https://via.placeholder.com/150?text=Fudge" },
+                { name: "Ferrerro", image: "https://via.placeholder.com/150?text=Ferrerro" },
+            ]
+        },
+        {
+            category: "Main Courses",
+            items: [
+                { name: "Haleem: Chicken(16OZ)", image: "https://via.placeholder.com/150?text=Haleem" },
+                { name: "Hyderabadi Mutton Marag(24 OZ)", image: "https://via.placeholder.com/150?text=Mutton+Marag" },
+                { name: "Aloo Tikki Burger", image: "https://via.placeholder.com/150?text=Aloo+Tikki+Burger" },
+                { name: "Shami Egg Burger", image: "https://via.placeholder.com/150?text=Shami+Egg+Burger" },
+                { name: "Noodle Burger", image: "https://via.placeholder.com/150?text=Noodle+Burger" },
+                { name: "Crispy Zinger Burger", image: "https://via.placeholder.com/150?text=Crispy+Zinger+Burger" },
+                { name: "Noodle Roll", image: "https://via.placeholder.com/150?text=Noodle+Roll" }
+            ]
+        }
     ];
 
     const handleBuyNow = (item) => {
@@ -46,7 +63,10 @@ const MainMenu = () => {
             }
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire(`Thank you, ${result.value.name}! Your order for ${item} has been placed. We will contact you at ${result.value.contact}.`);
+                const newCart = [...cart, { item, details: result.value }];
+                setLocalCart(newCart);
+                setCart(newCart);
+                Swal.fire(`Thank you, ${result.value.name}! Your order for ${item} has been added to the cart.`);
             }
         });
     };
@@ -54,15 +74,20 @@ const MainMenu = () => {
     return (
         <div>
             <h2 style={{ textAlign: 'center' }}>Our Menu</h2>
-            <div className="menu-grid">
-                {menuItems.map((item, index) => (
-                    <div className="menu-item" key={index}>
-                        <img src={item.image} alt={item.name} style={{ width: '100%', borderRadius: '8px' }} />
-                        <span>{item.name}</span>
-                        <button onClick={() => handleBuyNow(item.name)}>Buy Now</button>
+            {menuItems.map((category, categoryIndex) => (
+                <div key={categoryIndex}>
+                    <h3 style={{ textAlign: 'center' }}>{category.category}</h3>
+                    <div className="menu-grid">
+                        {category.items.map((item, index) => (
+                            <div className="menu-item" key={index}>
+                                <img src={item.image} alt={item.name} style={{ width: '100%', borderRadius: '8px' }} />
+                                <span>{item.name}</span>
+                                <button onClick={() => handleBuyNow(item.name)}>Buy Now</button>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
+                </div>
+            ))}
         </div>
     );
 };
